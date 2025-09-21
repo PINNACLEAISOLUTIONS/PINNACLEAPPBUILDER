@@ -1,12 +1,9 @@
 import streamlit as st
 from gradio_client import Client
 
-# Initialize the client
-client = Client("Qwen/Qwen3-Coder-WebDev", hf_token="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")
-
 st.title("PINNACLE AI APP BUILDER")
 
-st.markdown("Generate code using the Qwen3 model via Gradio API.")
+st.markdown("Generate code using AI models via Gradio API.")
 
 # Input fields
 input_value = st.text_area("Input Description", placeholder="Describe what code to generate", height=100)
@@ -17,17 +14,24 @@ if st.button("Generate Code"):
     if input_value.strip():
         with st.spinner("Generating code..."):
             try:
-                result = client.predict(
-                    input_value=input_value,
-                    system_prompt_input_value=system_prompt,
-                    api_name="/generate_code"
-                )
-                # result is a tuple: (markdown, textbox_value)
-                st.subheader("Generated Code (Markdown)")
-                st.markdown(result[0])
-                st.subheader("Output Text")
-                st.code(result[1], language='text')
+                # Try to connect to a working Hugging Face space
+                client = Client("microsoft/DialoGPT-medium")
+                result = client.predict(input_value, api_name="/predict")
+                
+                st.subheader("Generated Response")
+                st.write(result)
+                
             except Exception as e:
-                st.error(f"Error: {str(e)}")
+                st.error(f"Error connecting to AI model: {str(e)}")
+                st.info("Please check if the Hugging Face space is available or try a different model.")
+                
+                # Show the input for debugging
+                st.subheader("Your Input")
+                st.write(f"**Description:** {input_value}")
+                if system_prompt:
+                    st.write(f"**System Prompt:** {system_prompt}")
     else:
         st.warning("Please enter an input description.")
+
+st.markdown("---")
+st.markdown("**Note:** This app connects to Hugging Face models. If you encounter errors, the model space may be unavailable.")
