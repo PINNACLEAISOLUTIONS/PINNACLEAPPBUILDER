@@ -41,21 +41,20 @@ Refer to the examples.py file for usage of each endpoint.
 
 ## Web App
 
-A Gradio web interface is provided in `app.py` for easy interaction.
+A Streamlit web interface "PINNACLE AI APP BUILDER" is provided in `app.py` for easy interaction.
 
 Run locally:
 
 ```bash
-python app.py
+streamlit run app.py
 ```
 
-For a public URL, deploy to Hugging Face Spaces:
+For a public URL, deploy to Streamlit Cloud:
 
-1. Go to [Hugging Face Spaces](https://huggingface.co/spaces).
-2. Create a new Space.
-3. Select "Gradio" as the SDK.
-4. Upload `app.py` and `requirements.txt`.
-5. Your Space will have a public URL like `https://yourusername/yourspace.hf.space`.
+1. Go to [share.streamlit.io](https://share.streamlit.io).
+2. Connect your GitHub repository.
+3. Deploy the app.
+4. Your app will have a public URL like `https://yourusername-pinnacleappbuilder.streamlit.app`.
 
 ## Enabling Grok Code Fast 1 (Preview)
 
